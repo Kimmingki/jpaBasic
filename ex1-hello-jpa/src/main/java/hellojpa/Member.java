@@ -13,6 +13,10 @@ public class Member {
     @Column(name = "USERNAME")
     private String username;
 
+    @OneToOne
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
+
 //    @Column(name = "TEAM_ID")
 //    private Long teamId;
 
