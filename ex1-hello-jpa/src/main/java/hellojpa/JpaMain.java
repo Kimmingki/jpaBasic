@@ -15,23 +15,24 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Team team = new Team();
+            team.setName("Team 1");
+            em.persist(team);
+
             Member member = new Member();
             member.setUsername("hello");
-
+            member.setTeam(team);
             em.persist(member);
 
             em.flush();
             em.clear();
 
-//            Member findMember = em.find(Member.class, member.getId());
-            Member findMember = em.getReference(Member.class, member.getId());          // 이것은 가짜
+            Member findMember = em.find(Member.class, member.getId());
+            System.out.println("findMember.getTeam().getClass() = " + findMember.getTeam().getClass());
 
-            // 여기서 실제로 영속성 컨텍스트에 요청하여 실제 Entity를 생성하여 접근
-            System.out.println("findMember.getClass() = " + findMember.getClass());
-            System.out.println("findMember.getId() = " + findMember.getId());
-            System.out.println("findMember.getUsername() = " + findMember.getUsername());
-
-
+            System.out.println("=====================================");
+            findMember.getTeam().getName();
+            System.out.println("=====================================");
 
             tx.commit();
         } catch (Exception e) {
