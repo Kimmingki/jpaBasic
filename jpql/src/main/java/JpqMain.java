@@ -31,10 +31,10 @@ public class JpqMain {
             em.flush();
             em.clear();
 
-            String query = "select concat('a', 'b') from Member m";
-            List<String> result = em.createQuery(query, String.class).getResultList();
-            for (String s : result) {
-                System.out.println("s = " + s);
+            String query = "select m.username from Team t join t.members m";
+            List<Member> result = em.createQuery(query, Member.class).getResultList();
+            for (Member s : result) {
+                System.out.println("s = " + s.getUsername());
             }
 
             tx.commit();
