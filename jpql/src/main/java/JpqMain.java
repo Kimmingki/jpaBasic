@@ -31,11 +31,11 @@ public class JpqMain {
             em.flush();
             em.clear();
 
-            String query = "select m.username from Team t join t.members m";
-            List<Member> result = em.createQuery(query, Member.class).getResultList();
-            for (Member s : result) {
-                System.out.println("s = " + s.getUsername());
-            }
+            Member findMember = em.createNamedQuery("Member.findByUsername", Member.class)
+                    .setParameter("username", "member1")
+                    .getSingleResult();
+
+            System.out.println("findMember = " + findMember);
 
             tx.commit();
         } catch (Exception e) {
